@@ -124,11 +124,12 @@ class MonitorManager:
         message = self.translation.get(
             'commit_message',
             language,
-            repo_full_name=repo_full_name,
-            commit_message=commit_message,
-            author_name=commit['author_name'],
-            commit_time=commit_time,
-            short_hash=short_hash
+            repo_name=repo_full_name,        
+            repo_url=f"https://github.com/{repo_full_name}",  
+            commit_hash=short_hash,          
+            author=commit['author_name'], 
+            message=commit_message,          
+            commit_url=commit['url']         
         )
         
         changes_text = ""
@@ -152,9 +153,9 @@ class MonitorManager:
         
         if changes_text:
             if language == 'fa':
-                message += f"📊 *تغییرات:*\n{changes_text}\n"
+                message += f"\n📊 *تغییرات:*\n{changes_text}"
             else:
-                message += f"📊 *Changes:*\n{changes_text}\n"
+                message += f"\n📊 *Changes:*\n{changes_text}"
         
         if language == 'fa':
             message += f"""🔗 *لینک‌ها:*
