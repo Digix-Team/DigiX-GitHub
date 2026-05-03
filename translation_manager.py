@@ -26,8 +26,8 @@ class TranslationManager:
                            '/stats - View bot statistics\n'
                            '/status - Check GitHub API connection status\n\n'
                            '*How to add a repository:*\n'
-                           '_/add username/repository-name_\n\n'
-                           '*Example:* _/add facebook/react_',
+                           '`/add username/repository-name`\n\n'
+                           '*Example:* `/add facebook/react`',
                     'choose_language': '🌐 Please choose your language:',
                     'language_set': '✅ Language has been set to {language_name}',
                     'repo_added': '✅ *Repository successfully added!*\n\n'
@@ -38,10 +38,10 @@ class TranslationManager:
                                  '🔔 You will be notified of new commits.',
                     'repo_not_found': '❌ Repository *{repo_full_name}* not found!\n\n'
                                     'Please check the name and try again.\n'
-                                    '*Correct format:* _username/repository-name_',
+                                    '*Correct format:* `username/repository-name`',
                     'repo_removed': '🗑️ Repository *{repo_full_name}* has been removed from monitoring.',
                     'no_repositories': '📭 No repositories are being monitored.\n\n'
-                                      'Use _/add username/repository-name_ to add one.',
+                                      'Use `/add username/repository-name` to add one.',
                     'list_repos': '📋 *Your monitored repositories:*\n\n',
                     'checking_repos': '🔄 Checking {count} repository(ies) for new commits...',
                     'check_complete': '✅ Manual check completed!',
@@ -55,10 +55,10 @@ class TranslationManager:
                     'connection_error': '❌ *GitHub API Status:* Disconnected\n\n'
                                       'Please check your GitHub token.',
                     'unknown_command': '❓ Unknown command.\n\n'
-                                      'Use _/help_ to see available commands.',
+                                      'Use `/help` to see available commands.',
                     'commit_message': '📝 *New Commit Detected!*\n\n'
                                     '📦 *Repository:* [{repo_name}]({repo_url})\n'
-                                    '🔑 *Commit Hash:* _{commit_hash}_\n'
+                                    '🔑 *Commit Hash:* `{commit_hash}`\n'
                                     '👤 *Author:* {author}\n'
                                     '💬 *Message:* {message}\n'
                                     '🔗 [View Commit]({commit_url})',
@@ -68,15 +68,15 @@ class TranslationManager:
                                     '🔗 [View Repository]({repo_url})',
                     'invalid_format': '❌ *Invalid format!*\n\n'
                                      'Please use:\n'
-                                     '_/add username/repository-name_\n\n'
-                                     '*Example:* _/add facebook/react_',
+                                     '`/add username/repository-name`\n\n'
+                                     '*Example:* `/add facebook/react`',
                     'checking_repo': '🔍 Checking repository *{repo_full_name}*...',
-                    'remove_usage': '⚠️ *Usage:* _/remove username/repository-name_\n\n'
-                                   '*Example:* _/remove facebook/react_',
+                    'remove_usage': '⚠️ *Usage:* `/remove username/repository-name`\n\n'
+                                   '*Example:* `/remove facebook/react`',
                     'connected_status': '✅ Connected',
                     'disconnected_status': '❌ Disconnected',
                     'recent_repos_title': '*Your Recent Repositories:*',
-                    'stats_footer': '\n📈 Use _/add_ to add a new repository.',
+                    'stats_footer': '\n📈 Use `/add` to add a new repository.',
                     'branch_label': 'Branch',
                     'last_check_label': 'Last check'
                 },
@@ -94,8 +94,8 @@ class TranslationManager:
                            '/stats - مشاهده آمار ربات\n'
                            '/status - وضعیت اتصال به GitHub API\n\n'
                            '*نحوه افزودن ریپازیتوری:*\n'
-                           '_/add username/repository-name_\n\n'
-                           '*مثال:* _/add facebook/react_',
+                           '`/add username/repository-name`\n\n'
+                           '*مثال:* `/add facebook/react`',
                     'choose_language': '🌐 لطفاً زبان خود را انتخاب کنید:',
                     'language_set': '✅ زبان به {language_name} تنظیم شد',
                     'repo_added': '✅ *ریپازیتوری با موفقیت اضافه شد!*\n\n'
@@ -106,10 +106,10 @@ class TranslationManager:
                                  '🔔 از کامیت‌های جدید مطلع خواهید شد.',
                     'repo_not_found': '❌ ریپازیتوری *{repo_full_name}* پیدا نشد!\n\n'
                                     'لطفاً نام را بررسی کنید و دوباره تلاش کنید.\n'
-                                    '*قالب صحیح:* _username/repository-name_',
+                                    '*قالب صحیح:* `username/repository-name`',
                     'repo_removed': '🗑️ ریپازیتوری *{repo_full_name}* از لیست نظارت حذف شد.',
                     'no_repositories': '📭 هیچ ریپازیتوری در حال نظارت نیست.\n\n'
-                                      'برای افزودن از _/add username/repository-name_ استفاده کنید.',
+                                      'برای افزودن از `/add username/repository-name` استفاده کنید.',
                     'list_repos': '📋 *ریپازیتوری‌های تحت نظر شما:*\n\n',
                     'checking_repos': '🔄 در حال بررسی {count} ریپازیتوری برای کامیت‌های جدید...',
                     'check_complete': '✅ بررسی دستی کامل شد!',
@@ -123,10 +123,10 @@ class TranslationManager:
                     'connection_error': '❌ *وضعیت GitHub API:* قطع\n\n'
                                       'لطفاً توکن گیت‌هاب خود را بررسی کنید.',
                     'unknown_command': '❓ دستور ناشناخته.\n\n'
-                                      'برای مشاهده دستورات موجود از _/help_ استفاده کنید.',
+                                      'برای مشاهده دستورات موجود از `/help` استفاده کنید.',
                     'commit_message': '📝 *کامیت جدید تشخیص داده شد!*\n\n'
                                     '📦 *ریپازیتوری:* [{repo_name}]({repo_url})\n'
-                                    '🔑 *هش کامیت:* _{commit_hash}_\n'
+                                    '🔑 *هش کامیت:* `{commit_hash}`\n'
                                     '👤 *نویسنده:* {author}\n'
                                     '💬 *پیام:* {message}\n'
                                     '🔗 [مشاهده کامیت]({commit_url})',
@@ -136,15 +136,15 @@ class TranslationManager:
                                     '🔗 [مشاهده ریپازیتوری]({repo_url})',
                     'invalid_format': '❌ *قالب نامعتبر!*\n\n'
                                      'لطفاً از قالب زیر استفاده کنید:\n'
-                                     '_/add username/repository-name_\n\n'
-                                     '*مثال:* _/add facebook/react_',
+                                     '`/add username/repository-name`\n\n'
+                                     '*مثال:* `/add facebook/react`',
                     'checking_repo': '🔍 در حال بررسی ریپازیتوری *{repo_full_name}*...',
-                    'remove_usage': '⚠️ *طریقه استفاده:* _/remove username/repository-name_\n\n'
-                                   '*مثال:* _/remove facebook/react_',
+                    'remove_usage': '⚠️ *طریقه استفاده:* `/remove username/repository-name`\n\n'
+                                   '*مثال:* `/remove facebook/react`',
                     'connected_status': '✅ متصل',
                     'disconnected_status': '❌ قطع',
-                    'recent_repos_title': ' *آخرین ریپازیتوری‌های شما:*',
-                    'stats_footer': '\n📈 برای افزودن ریپازیتوری جدید از _/add_ استفاده کنید.',
+                    'recent_repos_title': '*آخرین ریپازیتوری‌های شما:*',
+                    'stats_footer': '\n📈 برای افزودن ریپازیتوری جدید از `/add` استفاده کنید.',
                     'branch_label': 'شاخه',
                     'last_check_label': 'آخرین بررسی'
                 }
