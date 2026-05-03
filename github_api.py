@@ -1,4 +1,3 @@
-# github_api.py
 import requests
 import logging
 from datetime import datetime
@@ -17,7 +16,6 @@ class GitHubAPI:
         self.base_url = 'https://api.github.com'
     
     def get_repo_info(self, repo_full_name: str) -> Optional[Dict]:
-        """Get repository information from GitHub API"""
         try:
             url = f'{self.base_url}/repos/{repo_full_name}'
             response = requests.get(url, headers=self.headers, timeout=10)
@@ -48,7 +46,6 @@ class GitHubAPI:
         return None
     
     def get_latest_commits(self, repo_full_name: str, branch: str = 'main', since: datetime = None) -> List[Dict]:
-        """Get latest commits from a repository"""
         try:
             url = f'{self.base_url}/repos/{repo_full_name}/commits'
             
@@ -68,7 +65,6 @@ class GitHubAPI:
                 
                 for commit in commits:
                     try:
-                        # Parse basic commit info
                         commit_info = {
                             'sha': commit['sha'],
                             'message': commit['commit']['message'].strip(),
@@ -86,7 +82,6 @@ class GitHubAPI:
                             'files': []
                         }
                         
-                        # Try to get detailed commit information
                         try:
                             detail_url = f'{self.base_url}/repos/{repo_full_name}/commits/{commit["sha"]}'
                             detail_resp = requests.get(detail_url, headers=self.headers, timeout=10)
@@ -145,7 +140,6 @@ class GitHubAPI:
         return []
     
     def test_connection(self) -> bool:
-        """Test GitHub API connection"""
         try:
             url = f'{self.base_url}/user'
             response = requests.get(url, headers=self.headers, timeout=10)
@@ -174,7 +168,6 @@ class GitHubAPI:
             return False
     
     def get_rate_limit(self) -> Dict:
-        """Get GitHub API rate limit status"""
         try:
             url = f'{self.base_url}/rate_limit'
             response = requests.get(url, headers=self.headers, timeout=10)
@@ -187,7 +180,6 @@ class GitHubAPI:
             return {}
     
     def get_branches(self, repo_full_name: str) -> List[Dict]:
-        """Get all branches of a repository"""
         try:
             url = f'{self.base_url}/repos/{repo_full_name}/branches'
             response = requests.get(url, headers=self.headers, timeout=10)
