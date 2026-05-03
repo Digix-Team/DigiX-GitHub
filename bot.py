@@ -193,14 +193,14 @@ class BotHandler:
         if '/' not in repo_full_name or repo_full_name.count('/') != 1:
             self.bot.reply_to(
                 message,
-                "❌ Invalid format!\nCorrect format: username/repository-name",
+                self.translation.get('invalid_format', language),
                 parse_mode='Markdown'
             )
             return
         
         wait_msg = self.bot.send_message(
             chat_id,
-            f"🔍 Checking repository *{repo_full_name}*...",
+            self.translation.get('checking_repo', language, repo_full_name=repo_full_name),
             parse_mode='Markdown'
         )
         
@@ -258,7 +258,7 @@ class BotHandler:
         if len(args) < 2:
             self.bot.reply_to(
                 message,
-                f"⚠️ Please enter repository name:\n_/remove username/repository-name_",
+                self.translation.get('remove_usage', language),
                 parse_mode='Markdown'
             )
             return
@@ -303,8 +303,8 @@ class BotHandler:
                     last_check = 'Unknown'
             
             list_text += f"{i}. *{repo['repo_full_name']}*\n"
-            list_text += f"   🌿 Branch: {repo.get('branch', 'main')}\n"
-            list_text += f"   🕐 Last check: {last_check}\n"
+            list_text += f"   🌿 {self.translation.get('branch_label', language)}: {repo.get('branch', 'main')}\n"
+            list_text += f"   🕐 {self.translation.get('last_check_label', language)}: {last_check}\n"
             list_text += f"   🔗 [View on GitHub]({repo['repo_url']})\n\n"
         
         self.bot.send_message(
@@ -357,8 +357,10 @@ class BotHandler:
         all_repos = len(self.db.get_all_monitored_repos())
         connection_status = '✅ Connected' if self.github.test_connection() else '❌ Disconnected'
         
-        if language == 'fa':
-            connection_status = '✅ متصل' if self.github.test_connection() else '❌ قطع'
+        if self.github.test_connection():
+            connection_status = self.translation.get('connected_status', language)
+        else:
+            connection_status = self.translation.get('disconnected_status', language)
         
         stats_text = self.translation.get(
             'stats',
@@ -371,19 +373,13 @@ class BotHandler:
         
         repos = self.db.get_user_repos(chat_id)
         if repos:
-            if language == 'fa':
-                stats_text += "*آخرین ریپازیتوری‌های شما:*\n"
-            else:
-                stats_text += "*Your Recent Repositories:*\n"
-            
+            stats_text += self.translation.get('recent_repos_title', language) + "\n"
+
             for i, repo in enumerate(repos[:5], 1):
                 stats_text += f"{i}. *{repo['repo_full_name']}*\n"
         
-        if language == 'fa':
-            stats_text += f"\n📈 از دستور */add* برای افزودن ریپازیتوری جدید استفاده کنید."
-        else:
-            stats_text += f"\n📈 Use */add* command to add new repository."
-        
+        stats_text += self.translation.get('stats_footer', language)
+
         self.bot.send_message(chat_id, stats_text, parse_mode='Markdown')
     
     def handle_status(self, message: Message):
