@@ -1,4 +1,3 @@
-# config.py
 import os
 import re
 from dotenv import load_dotenv
@@ -25,15 +24,12 @@ class Config:
     admin_ids_str = os.getenv('ADMIN_CHAT_IDS', '4575790772')
     
     try:
-        # حذف براکت‌ها و فاصله‌ها
         admin_ids_str = admin_ids_str.strip()
         
-        # حذف براکت شروع و پایان اگر وجود دارند
         if admin_ids_str.startswith('[') and admin_ids_str.endswith(']'):
             admin_ids_str = admin_ids_str[1:-1]
         
         if admin_ids_str:
-            # split کردن با کاما و تبدیل به عدد
             ADMIN_CHAT_ID = [int(id.strip()) for id in admin_ids_str.split(',') if id.strip()]
         else:
             ADMIN_CHAT_ID = []
@@ -49,16 +45,13 @@ class Config:
     
     @classmethod
     def validate_config(cls):
-        """Validate configuration and log warnings for development mode"""
         import logging
         
         logger = logging.getLogger(__name__)
         
-        # Check if using default admin ID (for security warning)
         if cls.ADMIN_CHAT_ID == [4575790772]:
             logger.warning("⚠️  Using default ADMIN_CHAT_ID. Consider changing it in .env file!")
         
-        # Validate tokens format (basic checks)
         if len(cls.BOT_TOKEN) < 10:
             logger.warning("⚠️  BOT_TOKEN seems too short!")
         
