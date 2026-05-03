@@ -121,16 +121,20 @@ class MonitorManager:
         if len(commit_message) > 300:
             commit_message = commit_message[:297] + "..."
         
-        message = self.translation.get(
-            'commit_message',
-            language,
-            repo_name=repo_full_name,        
-            repo_url=f"https://github.com/{repo_full_name}",  
-            commit_hash=short_hash,          
-            author=commit['author_name'], 
-            message=commit_message,          
-            commit_url=commit['url']         
-        )
+        if language == 'fa':
+            message = f"🚀 *کامیت جدید*\n\n"
+            message += f"📁 *ریپازیتوری:* *{repo_full_name}*\n"
+            message += f"📝 *پیام:* {commit_message}\n\n"
+            message += f"👤 *نویسنده:* {commit['author_name']}\n"
+            message += f"🕐 *زمان:* {commit_time}\n"
+            message += f"🔑 *هش:* *{short_hash}*\n"
+        else:
+            message = f"🚀 *New Commit*\n\n"
+            message += f"📁 *Repository:* *{repo_full_name}*\n"
+            message += f"📝 *Message:* {commit_message}\n\n"
+            message += f"👤 *Author:* {commit['author_name']}\n"
+            message += f"🕐 *Time:* {commit_time}\n"
+            message += f"🔑 *Hash:* *{short_hash}*\n"
         
         changes_text = ""
         if commit.get('added', 0) > 0:
@@ -158,13 +162,13 @@ class MonitorManager:
                 message += f"\n📊 *Changes:*\n{changes_text}"
         
         if language == 'fa':
-            message += f"""🔗 *لینک‌ها:*
-• [مشاهده کامیت در GitHub]({commit['url']})
-• [مشاهده ریپازیتوری](https://github.com/{repo_full_name})"""
+            message += f"\n🔗 *لینک‌ها:*\n"
+            message += f"• [مشاهده کامیت در GitHub]({commit['url']})\n"
+            message += f"• [مشاهده ریپازیتوری](https://github.com/{repo_full_name})"
         else:
-            message += f"""🔗 *Links:*
-• [View commit on GitHub]({commit['url']})
-• [View repository](https://github.com/{repo_full_name})"""
+            message += f"\n🔗 *Links:*\n"
+            message += f"• [View commit on GitHub]({commit['url']})\n"
+            message += f"• [View repository](https://github.com/{repo_full_name})"
         
         return message
     
