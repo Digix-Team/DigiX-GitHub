@@ -13,42 +13,140 @@ class TranslationManager:
         if not os.path.exists(self.translation_file):
             default_translations = {
                 'en': {
-                    'welcome': 'Welcome',
-                    'help': 'Help',
-                    'choose_language': 'Please choose your language:',
-                    'language_set': 'Language has been set to {language_name}',
-                    'repo_added': 'Repository successfully added: {repo_name}',
-                    'repo_not_found': 'Repository not found: {repo_name}',
-                    'repo_removed': 'Repository removed: {repo_name}',
-                    'no_repositories': 'No repositories found',
-                    'list_repos': 'Your repositories:',
-                    'checking_repos': 'Checking {count} repositories...',
-                    'check_complete': 'Check complete',
-                    'stats': 'Statistics',
-                    'connection_ok': 'Connection OK',
-                    'connection_error': 'Connection error',
-                    'unknown_command': 'Unknown command',
-                    'commit_message': 'New commit: {commit_hash}',
-                    'commit_summary': 'Commit summary: {total} commits'
+                    'welcome': '🤖 *GitHub Commit Monitor Bot*\n\nThis bot monitors your private/public GitHub repositories for changes.\n\n*Main Commands:*\n📋 /list - My repositories\n➕ /add - Add new repository\n➖ /remove - Remove repository\n🔍 /check - Manual check\n📊 /stats - Bot statistics\n🌐 /language - Change language\n❓ /help - Complete guide',
+                    'help': '📚 *Help Guide*\n\n'
+                           'Available commands:\n'
+                           '/start - Start the bot\n'
+                           '/help - Show this help\n'
+                           '/language - Change language\n'
+                           '/add - Add a repository to monitor\n'
+                           '/remove - Remove a repository from monitoring\n'
+                           '/list - List all monitored repositories\n'
+                           '/check - Manually check all repositories\n'
+                           '/stats - View bot statistics\n'
+                           '/status - Check GitHub API connection status\n\n'
+                           '*How to add a repository:*\n'
+                           '`/add username/repository-name`\n\n'
+                           '*Example:* `/add facebook/react`',
+                    'choose_language': '🌐 Please choose your language:',
+                    'language_set': '✅ Language has been set to {language_name}',
+                    'repo_added': '✅ *Repository successfully added!*\n\n'
+                                 '📦 *Name:* {repo_full_name}\n'
+                                 '🌿 *Branch:* {default_branch}\n'
+                                 '🔗 *Link:* [View on GitHub]({repo_url})\n'
+                                 '⏱️ *Check interval:* Every {check_interval} seconds\n\n'
+                                 '🔔 You will be notified of new commits.',
+                    'repo_not_found': '❌ Repository *{repo_full_name}* not found!\n\n'
+                                    'Please check the name and try again.\n'
+                                    '*Correct format:* `username/repository-name`',
+                    'repo_removed': '🗑️ Repository *{repo_full_name}* has been removed from monitoring.',
+                    'no_repositories': '📭 No repositories are being monitored.\n\n'
+                                      'Use `/add username/repository-name` to add one.',
+                    'list_repos': '📋 *Your monitored repositories:*\n\n',
+                    'checking_repos': '🔄 Checking {count} repository(ies) for new commits...',
+                    'check_complete': '✅ Manual check completed!',
+                    'stats': '📊 *Bot Statistics*\n\n'
+                           '📁 *Your repositories:* {user_repos}\n'
+                           '🌍 *Total monitored repos:* {total_repos}\n'
+                           '⏱️ *Check interval:* {interval} seconds\n'
+                           '🔌 *GitHub API:* {connection_status}',
+                    'connection_ok': '✅ *GitHub API Status:* Connected\n\n'
+                                   'Bot is functioning normally.',
+                    'connection_error': '❌ *GitHub API Status:* Disconnected\n\n'
+                                      'Please check your GitHub token.',
+                    'unknown_command': '❓ Unknown command.\n\n'
+                                      'Use `/help` to see available commands.',
+                    'commit_message': '📝 *New Commit Detected!*\n\n'
+                                    '📦 *Repository:* [{repo_name}]({repo_url})\n'
+                                    '🔑 *Commit Hash:* `{commit_hash}`\n'
+                                    '👤 *Author:* {author}\n'
+                                    '💬 *Message:* {message}\n'
+                                    '🔗 [View Commit]({commit_url})',
+                    'commit_summary': '📊 *Commit Summary*\n\n'
+                                    '📦 *Repository:* {repo_name}\n'
+                                    '🆕 *New commits found:* {total}\n'
+                                    '🔗 [View Repository]({repo_url})',
+                    'invalid_format': '❌ *Invalid format!*\n\n'
+                                     'Please use:\n'
+                                     '`/add username/repository-name`\n\n'
+                                     '*Example:* `/add facebook/react`',
+                    'checking_repo': '🔍 Checking repository *{repo_full_name}*...',
+                    'remove_usage': '⚠️ *Usage:* `/remove username/repository-name`\n\n'
+                                   '*Example:* `/remove facebook/react`',
+                    'connected_status': '✅ Connected',
+                    'disconnected_status': '❌ Disconnected',
+                    'recent_repos_title': '*Your Recent Repositories:*',
+                    'stats_footer': '\n📈 Use `/add` to add a new repository.',
+                    'branch_label': 'Branch',
+                    'last_check_label': 'Last check'
                 },
                 'fa': {
-                    'welcome': 'خوش آمدید',
-                    'help': 'راهنما',
-                    'choose_language': 'لطفاً زبان خود را انتخاب کنید:',
-                    'language_set': 'زبان به {language_name} تنظیم شد',
-                    'repo_added': 'ریپازیتوری با موفقیت اضافه شد: {repo_name}',
-                    'repo_not_found': 'ریپازیتوری پیدا نشد: {repo_name}',
-                    'repo_removed': 'ریپازیتوری حذف شد: {repo_name}',
-                    'no_repositories': 'هیچ ریپازیتوری یافت نشد',
-                    'list_repos': 'ریپازیتوری‌های شما:',
-                    'checking_repos': 'در حال بررسی {count} ریپازیتوری...',
-                    'check_complete': 'بررسی کامل شد',
-                    'stats': 'آمار',
-                    'connection_ok': 'اتصال موفق',
-                    'connection_error': 'خطای اتصال',
-                    'unknown_command': 'دستور ناشناخته',
-                    'commit_message': 'کامیت جدید: {commit_hash}',
-                    'commit_summary': 'خلاصه کامیت‌ها: {total} کامیت'
+                    'welcome': '🤖 *ربات مانیتورینگ کامیت‌های GitHub*\n\nاین ربات تغییرات ریپازیتوری‌های خصوصی/عمومی GitHub شما را مانیتور می‌کند.\n\n*دستورات اصلی:*\n📋 /list - مشاهده ریپازیتوری‌های من\n➕ /add - افزودن ریپازیتوری جدید\n➖ /remove - حذف ریپازیتوری\n🔍 /check - چک کردن دستی\n📊 /stats - آمار ربات\n🌐 /language - تغییر زبان\n❓ /help - راهنمای کامل',
+                    'help': '📚 *راهنما*\n\n'
+                           'دستورات موجود:\n'
+                           '/start - شروع ربات\n'
+                           '/help - نمایش این راهنما\n'
+                           '/language - تغییر زبان\n'
+                           '/add - افزودن ریپازیتوری برای مانیتور\n'
+                           '/remove - حذف ریپازیتوری از مانیتور\n'
+                           '/list - لیست ریپازیتوری‌های تحت نظر\n'
+                           '/check - بررسی دستی همه ریپازیتوری‌ها\n'
+                           '/stats - مشاهده آمار ربات\n'
+                           '/status - وضعیت اتصال به GitHub API\n\n'
+                           '*نحوه افزودن ریپازیتوری:*\n'
+                           '`/add username/repository-name`\n\n'
+                           '*مثال:* `/add facebook/react`',
+                    'choose_language': '🌐 لطفاً زبان خود را انتخاب کنید:',
+                    'language_set': '✅ زبان به {language_name} تنظیم شد',
+                    'repo_added': '✅ *ریپازیتوری با موفقیت اضافه شد!*\n\n'
+                                 '📦 *نام:* {repo_full_name}\n'
+                                 '🌿 *شاخه:* {default_branch}\n'
+                                 '🔗 *لینک:* [مشاهده در گیت‌هاب]({repo_url})\n'
+                                 '⏱️ *فاصله بررسی:* هر {check_interval} ثانیه\n\n'
+                                 '🔔 از کامیت‌های جدید مطلع خواهید شد.',
+                    'repo_not_found': '❌ ریپازیتوری *{repo_full_name}* پیدا نشد!\n\n'
+                                    'لطفاً نام را بررسی کنید و دوباره تلاش کنید.\n'
+                                    '*قالب صحیح:* `username/repository-name`',
+                    'repo_removed': '🗑️ ریپازیتوری *{repo_full_name}* از لیست نظارت حذف شد.',
+                    'no_repositories': '📭 هیچ ریپازیتوری در حال نظارت نیست.\n\n'
+                                      'برای افزودن از `/add username/repository-name` استفاده کنید.',
+                    'list_repos': '📋 *ریپازیتوری‌های تحت نظر شما:*\n\n',
+                    'checking_repos': '🔄 در حال بررسی {count} ریپازیتوری برای کامیت‌های جدید...',
+                    'check_complete': '✅ بررسی دستی کامل شد!',
+                    'stats': '📊 *آمار ربات*\n\n'
+                           '📁 *ریپازیتوری‌های شما:* {user_repos}\n'
+                           '🌍 *کل ریپازیتوری‌های تحت نظر:* {total_repos}\n'
+                           '⏱️ *فاصله بررسی:* {interval} ثانیه\n'
+                           '🔌 *وضعیت GitHub API:* {connection_status}',
+                    'connection_ok': '✅ *وضعیت GitHub API:* متصل\n\n'
+                                   'ربات به درستی کار می‌کند.',
+                    'connection_error': '❌ *وضعیت GitHub API:* قطع\n\n'
+                                      'لطفاً توکن گیت‌هاب خود را بررسی کنید.',
+                    'unknown_command': '❓ دستور ناشناخته.\n\n'
+                                      'برای مشاهده دستورات موجود از `/help` استفاده کنید.',
+                    'commit_message': '📝 *کامیت جدید تشخیص داده شد!*\n\n'
+                                    '📦 *ریپازیتوری:* [{repo_name}]({repo_url})\n'
+                                    '🔑 *هش کامیت:* `{commit_hash}`\n'
+                                    '👤 *نویسنده:* {author}\n'
+                                    '💬 *پیام:* {message}\n'
+                                    '🔗 [مشاهده کامیت]({commit_url})',
+                    'commit_summary': '📊 *خلاصه کامیت‌ها*\n\n'
+                                    '📦 *ریپازیتوری:* {repo_name}\n'
+                                    '🆕 *کامیت‌های جدید یافت شد:* {total}\n'
+                                    '🔗 [مشاهده ریپازیتوری]({repo_url})',
+                    'invalid_format': '❌ *قالب نامعتبر!*\n\n'
+                                     'لطفاً از قالب زیر استفاده کنید:\n'
+                                     '`/add username/repository-name`\n\n'
+                                     '*مثال:* `/add facebook/react`',
+                    'checking_repo': '🔍 در حال بررسی ریپازیتوری *{repo_full_name}*...',
+                    'remove_usage': '⚠️ *طریقه استفاده:* `/remove username/repository-name`\n\n'
+                                   '*مثال:* `/remove facebook/react`',
+                    'connected_status': '✅ متصل',
+                    'disconnected_status': '❌ قطع',
+                    'recent_repos_title': '*آخرین ریپازیتوری‌های شما:*',
+                    'stats_footer': '\n📈 برای افزودن ریپازیتوری جدید از `/add` استفاده کنید.',
+                    'branch_label': 'شاخه',
+                    'last_check_label': 'آخرین بررسی'
                 }
             }
             with open(self.translation_file, 'w', encoding='utf-8') as f:
