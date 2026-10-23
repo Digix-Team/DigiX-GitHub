@@ -1,6 +1,7 @@
 import logging
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from threading import Thread
 from typing import Dict, List
 import telebot
@@ -39,7 +40,7 @@ class MonitorManager:
             last_commit_date = self.db.get_last_commit_date(repo_full_name)
             
             if not last_commit_date:
-                last_commit_date = datetime.now() - timedelta(hours=24)
+                last_commit_date = datetime.now(timezone.utc) - timedelta(hours=24)
                 logger.info(f"First check for {repo_full_name}, checking last 24 hours")
             
             commits = self.github.get_latest_commits(repo_full_name, branch, last_commit_date)
@@ -114,7 +115,9 @@ class MonitorManager:
                 logger.error(f"Error sending summary to {chat_id}: {e}")
     
     def _format_commit_message(self, repo_full_name: str, commit: Dict, language: str) -> str:
-        commit_time = commit['date'].strftime('%Y/%m/%d - %H:%M:%S')
+        commit_time = commit['date'].astimezone(
+            ZoneInfo('Asia/Tehran')
+        ).strftime('%Y/%m/%d - %H:%M:%S')
         short_hash = commit['sha'][:7]
         
         commit_message = commit['message']

@@ -5,6 +5,7 @@ import time
 import atexit
 from telebot.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from config import Config
 from database import Database
@@ -293,13 +294,22 @@ class BotHandler:
         
         for i, repo in enumerate(repos, 1):
             last_check = repo.get('last_check', 'Unknown')
-            if last_check and not isinstance(last_check, str):
+            if last_check:
                 try:
-                    last_check = datetime.strptime(
-                        str(last_check),
-                        '%Y-%m-%d %H:%M:%S.%f' if '.' in str(last_check) else '%Y-%m-%d %H:%M:%S'
+                    if isinstance(last_check, datetime):
+                        check_dt = last_check
+                    else:
+                        check_dt = datetime.fromisoformat(str(last_check))
+
+                    if check_dt.tzinfo is None:
+                        # Legacy SQLite timestamps are naive local wall times.
+                        # Interpret them using the host's local timezone.
+                        check_dt = check_dt.astimezone()
+
+                    last_check = check_dt.astimezone(
+                        ZoneInfo('Asia/Tehran')
                     ).strftime('%H:%M')
-                except:
+                except (ValueError, TypeError, OverflowError):
                     last_check = 'Unknown'
             
             list_text += f"{i}. *{repo['repo_full_name']}*\n"

@@ -1,6 +1,6 @@
 import requests
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, List, Optional
 
 logger = logging.getLogger(__name__)
@@ -51,6 +51,10 @@ class GitHubAPI:
             
             params = {'sha': branch, 'per_page': 20}
             if since:
+                if since.tzinfo is None:
+                    since = since.replace(tzinfo=timezone.utc)
+                else:
+                    since = since.astimezone(timezone.utc)
                 params['since'] = since.strftime('%Y-%m-%dT%H:%M:%SZ')
                 
             logger.info(f"Fetching commits for {repo_full_name} (branch: {branch}) since {since if since else 'beginning'}")
@@ -73,7 +77,7 @@ class GitHubAPI:
                             'date': datetime.strptime(
                                 commit['commit']['author']['date'],
                                 '%Y-%m-%dT%H:%M:%SZ'
-                            ),
+                            ).replace(tzinfo=timezone.utc),
                             'url': commit['html_url'],
                             'repo_full_name': repo_full_name,
                             'added': 0,
