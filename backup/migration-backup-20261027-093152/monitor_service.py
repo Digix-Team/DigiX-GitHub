@@ -6,10 +6,10 @@ from threading import Thread
 from typing import Dict, List
 import telebot
 
-from database import Database
-from github_api import GitHubAPI
-from config import Config
-from translation_manager import TranslationManager
+from app.database.repository import Database
+from app.integrations.github_api import GitHubAPI
+from app.core.config import Config
+from app.services.translation_service import TranslationManager
 
 logger = logging.getLogger(__name__)
 

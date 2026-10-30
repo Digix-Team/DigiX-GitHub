@@ -30,3 +30,7 @@ htmlcov/
 
 # === Logs ===
 *.log
+
+# === Local databases ===
+github_bot.db
+*.db

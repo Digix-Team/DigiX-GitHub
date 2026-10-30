@@ -25,7 +25,7 @@ Before setting up the bot, ensure you have:
 
 1. **GitHub Account** with repositories to monitor
 2. **Telegram Account** and the Telegram app
-3. **Python 3.7+** installed on your system
+3. **Python 3.10+** installed on your system
 
 ## Setup Instructions
 
@@ -51,7 +51,7 @@ Before setting up the bot, ensure you have:
 1. Clone or download the bot files to your server
 2. Install required dependencies:
    ```bash
-   pip install pyTelegramBotAPI requests python-dotenv
+   pip install aiogram==3.4.1 requests python-dotenv
    ```
 3. Create a `.env` file with the following configuration:
    ```

@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 from threading import Lock
 from typing import Dict, List, Optional
-from config import Config
+from app.core.config import Config
 
 
 class Database:
